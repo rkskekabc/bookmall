@@ -98,7 +98,7 @@ public class OrdersDao {
 		}
 	}
 	
-	public List<OrdersVo> getOrdersList(){
+	public List<OrdersVo> getOrdersList(Long memberNo){
 		List<OrdersVo> result = new ArrayList<OrdersVo>();
 		
 		Connection conn = null;
@@ -108,18 +108,20 @@ public class OrdersDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select no, orders_no, status, orders_price, destination, member_no from orders";
+			String sql = "select b.name, a.orders_no, a.status, a.orders_price, a.destination from orders a"
+						+ " join member b on a.member_no = b.no"
+						+ " where member_no = ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, memberNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				OrdersVo vo = new OrdersVo();
-				vo.setNo(rs.getLong(1));
+				vo.setMemberName(rs.getString(1));
 				vo.setOrdersNo(rs.getString(2));
 				vo.setStatus(rs.getString(3));
 				vo.setOrdersPrice(rs.getInt(4));
 				vo.setDestination(rs.getString(5));
-				vo.setMemberNo(rs.getLong(6));
 				
 				result.add(vo);
 			}
@@ -144,7 +146,7 @@ public class OrdersDao {
 		return result;
 	}
 	
-	public List<OrdersBookVo> getOrdersBookList(){
+	public List<OrdersBookVo> getOrdersBookList(Long ordersNo){
 		List<OrdersBookVo> result = new ArrayList<OrdersBookVo>();
 		
 		Connection conn = null;
@@ -154,15 +156,20 @@ public class OrdersDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select orders_no, book_no, count from orders_book";
+			String sql = "select b.orders_no, c.name, a.count, a.count * c.price from orders_book a"
+							+ " join orders b on a.orders_no = b.no"
+							+ " join book c on a.book_no = c.no"
+							+ " where b.no = ?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, ordersNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				OrdersBookVo vo = new OrdersBookVo();
-				vo.setOrdersNo(rs.getLong(1));
-				vo.setBookNo(rs.getLong(2));
+				vo.setOrdersName(rs.getString(1));
+				vo.setBookName(rs.getString(2));
 				vo.setCount(rs.getInt(3));
+				vo.setPrice(rs.getInt(4));
 				
 				result.add(vo);
 			}

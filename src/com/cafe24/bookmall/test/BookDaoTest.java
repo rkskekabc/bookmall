@@ -8,8 +8,10 @@ import com.cafe24.bookmall.vo.BookVo;
 public class BookDaoTest {
 
 	public static void main(String[] args) {
-		//insertTest("인연", 20000, 2L);
-		getBookTest(2L);
+		insertTest("운수좋은날", 15000, 1L);
+		insertTest("인연", 20000, 2L);
+		insertTest("대규모 서비스를 지탱하는 기술", 25000, 3L);
+		//getBookTest(2L);
 		getListTest();
 	}
 
@@ -22,9 +24,9 @@ public class BookDaoTest {
 		new BookDao().insert(vo);
 	}
 	
-	private static void getBookTest(Long bookNo) {
-		System.out.println(new BookDao().getBook(bookNo));
-	}
+//	private static void getBookTest(Long bookNo) {
+//		System.out.println(new BookDao().getBook(bookNo));
+//	}
 	
 	private static void getListTest() {
 		List<BookVo> list = new BookDao().getList();

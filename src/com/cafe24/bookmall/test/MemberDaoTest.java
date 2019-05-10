@@ -9,7 +9,8 @@ public class MemberDaoTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		insertTest("나", "010-2222-2222", "sk@sk.com", "sk");
+		insertTest("ABC", "010-1111-1111", "rk@rk.com", "rk");
+		insertTest("DEF", "010-2222-2222", "sk@sk.com", "sk");
 		getListTest();
 	}
 	

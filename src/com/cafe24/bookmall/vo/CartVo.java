@@ -3,6 +3,10 @@ package com.cafe24.bookmall.vo;
 public class CartVo {
 	private Long memberNo;
 	private Long bookNo;
+	
+	private String memberName;
+	private String bookName;
+	
 	private int count;
 	
 	private int price;
@@ -19,6 +23,18 @@ public class CartVo {
 	public void setBookNo(Long bookNo) {
 		this.bookNo = bookNo;
 	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
 	public int getCount() {
 		return count;
 	}
@@ -33,6 +49,8 @@ public class CartVo {
 	}
 	@Override
 	public String toString() {
-		return "CartVo [memberNo=" + memberNo + ", bookNo=" + bookNo + ", count=" + count + ", price=" + price + "]";
+		return "CartVo [memberNo=" + memberNo + ", bookNo=" + bookNo + ", memberName=" + memberName + ", bookName="
+				+ bookName + ", count=" + count + ", price=" + price + "]";
 	}
+	
 }

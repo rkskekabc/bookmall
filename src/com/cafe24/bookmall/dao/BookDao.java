@@ -47,51 +47,51 @@ public class BookDao {
 		}
 	}
 	
-	public BookVo getBook(Long bookNo){
-		BookVo result = new BookVo();
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			
-			String sql = "select no, name, price, category_no from book"
-							+ " where no = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setLong(1, bookNo);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				BookVo vo = new BookVo();
-				vo.setNo(rs.getLong(1));
-				vo.setName(rs.getString(2));
-				vo.setPrice(rs.getInt(3));
-				vo.setCategoryNo(rs.getLong(4));
-				
-				result = vo;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if( rs != null ) {
-					rs.close();
-				}
-				if( pstmt != null ) {
-					pstmt.close();
-				}
-				if( conn != null ) {
-					conn.close();
-				}
- 			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-		
-		return result;
-	}
+//	public BookVo getBook(Long bookNo){
+//		BookVo result = new BookVo();
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			conn = getConnection();
+//			
+//			String sql = "select no, name, price, category_no from book"
+//							+ " where no = ?";
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setLong(1, bookNo);
+//			rs = pstmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				BookVo vo = new BookVo();
+//				vo.setNo(rs.getLong(1));
+//				vo.setName(rs.getString(2));
+//				vo.setPrice(rs.getInt(3));
+//				vo.setCategoryNo(rs.getLong(4));
+//				
+//				result = vo;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				if( rs != null ) {
+//					rs.close();
+//				}
+//				if( pstmt != null ) {
+//					pstmt.close();
+//				}
+//				if( conn != null ) {
+//					conn.close();
+//				}
+// 			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}		
+//		
+//		return result;
+//	}
 	
 	public List<BookVo> getList(){
 		List<BookVo> result = new ArrayList<BookVo>();
@@ -103,7 +103,8 @@ public class BookDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select no, name, price, category_no from book";
+			String sql = "select a.no, a.name, a.price, b.name from book a"
+						+ " join category b on a.category_no = b.no";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -112,7 +113,7 @@ public class BookDao {
 				vo.setNo(rs.getLong(1));
 				vo.setName(rs.getString(2));
 				vo.setPrice(rs.getInt(3));
-				vo.setCategoryNo(rs.getLong(4));
+				vo.setCategoryName(rs.getString(4));
 				
 				result.add(vo);
 			}

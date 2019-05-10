@@ -9,10 +9,11 @@ import com.cafe24.bookmall.vo.OrdersVo;
 
 public class OrdersDaoTest {
 	public static void main(String[] args) {
-		//insertOrdersTest("20090509-0002", "주문대기", 30000, "목적지2", 2L);
-		//insertOrdersBookTest(2L, 1L, 2);
-		getOrdersListTest();
-		getOrdersBookListTest();
+		insertOrdersTest("20090509-0001", "주문대기", 90000, "인천", 1L);
+		insertOrdersBookTest(1L, 1L, 2);
+		insertOrdersBookTest(1L, 2L, 3);
+		getOrdersListTest(1L);
+		getOrdersBookListTest(1L);
 	}
 	
 	private static void insertOrdersTest(String ordersNo, String status, int ordersPrice, String destination, Long memberNo) {
@@ -33,20 +34,21 @@ public class OrdersDaoTest {
 		vo.setOrdersNo(ordersNo);
 		vo.setBookNo(bookNo);
 		vo.setCount(count);
+		voList.add(vo);
 		
 		new OrdersDao().insertOrdersBook(voList);
 	}
 	
-	private static void getOrdersListTest() {
-		List<OrdersVo> list = new OrdersDao().getOrdersList();
+	private static void getOrdersListTest(Long memberNo) {
+		List<OrdersVo> list = new OrdersDao().getOrdersList(memberNo);
 		
 		for(OrdersVo vo : list) {
 			System.out.println(vo);
 		}
 	}
 	
-	private static void getOrdersBookListTest() {
-		List<OrdersBookVo> list = new OrdersDao().getOrdersBookList();
+	private static void getOrdersBookListTest(Long ordersNo) {
+		List<OrdersBookVo> list = new OrdersDao().getOrdersBookList(ordersNo);
 		
 		for(OrdersBookVo vo : list) {
 			System.out.println(vo);

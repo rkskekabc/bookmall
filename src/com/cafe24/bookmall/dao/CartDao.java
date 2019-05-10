@@ -57,8 +57,9 @@ public class CartDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select a.member_no, a.book_no, a.count, a.count * b.price from cart a"
-							+ " join book b on a.book_no = b.no"
+			String sql = "select b.name, c.name, a.count, a.count * c.price from cart a"
+							+ " join member b on a.member_no = b.no"
+							+ " join book c on a.book_no = c.no"
 							+ " where member_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setLong(1, memberNo);
@@ -67,8 +68,8 @@ public class CartDao {
 			
 			while(rs.next()) {
 				CartVo vo = new CartVo();
-				vo.setMemberNo(rs.getLong(1));
-				vo.setBookNo(rs.getLong(2));
+				vo.setMemberName(rs.getString(1));
+				vo.setBookName(rs.getString(2));
 				vo.setCount(rs.getInt(3));
 				vo.setPrice(rs.getInt(4));
 				

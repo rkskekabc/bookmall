@@ -8,6 +8,7 @@ public class OrdersVo {
 	private String destination;
 	
 	private Long memberNo;
+	private String memberName;
 
 	public Long getNo() {
 		return no;
@@ -15,6 +16,14 @@ public class OrdersVo {
 
 	public void setNo(Long no) {
 		this.no = no;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public String getOrdersNo() {
@@ -60,6 +69,7 @@ public class OrdersVo {
 	@Override
 	public String toString() {
 		return "OrdersVo [no=" + no + ", ordersNo=" + ordersNo + ", status=" + status + ", ordersPrice=" + ordersPrice
-				+ ", destination=" + destination + ", memberNo=" + memberNo + "]";
+				+ ", destination=" + destination + ", memberNo=" + memberNo + ", memberName=" + memberName + "]";
 	}
+
 }

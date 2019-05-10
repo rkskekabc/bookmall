@@ -7,7 +7,8 @@ import com.cafe24.bookmall.vo.CartVo;
 
 public class CartDaoTest {
 	public static void main(String[] args) {
-		insertTest(1L, 2L, 2);
+		insertTest(1L, 1L, 2);
+		insertTest(1L, 2L, 3);
 		getListTest(1L);
 	}
 	
